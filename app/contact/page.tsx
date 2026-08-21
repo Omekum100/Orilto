@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero contact-hero">
         <div className="container grid-12 split">
-          <div><p className="mono eyebrow">Contact</p><h1 className="h1">Tell us what needs to change.</h1></div>
+          <div><p className="mono eyebrow">Contact</p><h1 className="contact-title">Tell us what needs to change.</h1></div>
           <div><p className="lede">Use the form to explain the problem before booking anything. For a direct route, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p></div>
         </div>
       </section>
-      <section className="section-tight">
-        <div className="container"><ContactForm /></div>
+      <section className="contact-form-section">
+        <div className="container contact-form-shell"><ContactForm /></div>
       </section>
     </>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import { whyOrilto, aiPrinciples } from "@/content/principles";
 
 export const metadata: Metadata = {
@@ -25,12 +26,23 @@ export default function AboutPage() {
         </div>
       </section>
       <section className="section">
-        <div className="container principles">{whyOrilto.map(([title, text]) => <article className="surface offer-card" key={title}><h2>{title}</h2><p>{text}</p></article>)}</div>
+        <div className="container principles">
+          {whyOrilto.map(([title, text], index) => (
+            <article className="principle-card" key={title} data-tone={index + 1}>
+              <div className="principle-topline">
+                <span className="principle-number">{String(index + 1).padStart(2, "0")}</span>
+                <CheckCircle2 className="principle-icon" aria-hidden="true" />
+              </div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
       </section>
       <section className="dark section-tight">
-        <div className="container grid-12 split">
+        <div className="container grid-12 split ai-philosophy">
           <div><h2 className="h2">Responsible AI philosophy</h2><p className="lede muted">AI should have a useful job, a measurable boundary, and a fallback when confidence is not enough.</p></div>
-          <div className="tag-row">{aiPrinciples.map((item) => <span className="tag" key={item}>{item}</span>)}</div>
+          <div className="ai-principle-chips">{aiPrinciples.map((item) => <span className="tag" key={item}>{item}</span>)}</div>
         </div>
       </section>
       <section className="section-tight">

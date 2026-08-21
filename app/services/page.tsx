@@ -21,10 +21,10 @@ export default function ServicesPage() {
           <p className="lede">Orilto helps teams clarify what should be built, design the experience, engineer the system, and keep improving after launch.</p>
         </div>
       </section>
-      <section className="section-tight">
-        <div className="container offer-grid">
+      <section className="section-compact offer-section">
+        <div className="container offer-grid services-offer-grid">
           {offers.map((offer, index) => (
-            <article className="surface offer-card" key={offer.title}>
+            <article className="surface offer-card service-offer-card" key={offer.title}>
               <p className="mono muted">{String(index + 1).padStart(2, "0")}</p>
               <h2 className="h3">{offer.title}</h2>
               <p>{offer.summary}</p>
@@ -33,7 +33,7 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
-      <section className="section">
+      <section className="section-compact operational-band">
         <div className="container">
           <p className="mono eyebrow">Detailed capabilities</p>
           {services.map((service) => (
@@ -61,5 +61,5 @@ export default function ServicesPage() {
 }
 
 function Info({ title, text }: { title: string; text: string }) {
-  return <div className="surface" style={{ padding: 20 }}><p className="mono eyebrow">{title}</p><p>{text}</p></div>;
+  return <div className="surface info-card"><p className="mono eyebrow">{title}</p><p>{text}</p></div>;
 }

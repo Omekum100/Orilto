@@ -3,12 +3,14 @@ export type CaseStudy = {
   client: string;
   title: string;
   summary: string;
+  websiteUrl: string;
   tags: string[];
   need: string;
   challenge: string;
   contribution: string;
   delivered: string[];
   evidence: string[];
+  images: { src: string; alt: string }[];
   status: { shipped: string[]; inProgress: string[]; planned: string[] };
   sections: Record<string, string>;
 };
@@ -20,6 +22,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Building an AI-first event marketplace from product idea to production-shaped platform",
     summary:
       "An intelligent venue and event-services marketplace combining conversational discovery, marketplace workflows, operations tooling, APIs, authentication, media, notifications, and AWS infrastructure.",
+    websiteUrl: "https://www.telohive.com/",
     tags: ["Product Strategy", "Marketplace UX", "Conversational AI", "Full-stack Engineering", "AWS"],
     need: "A product idea needed to become a coherent marketplace system with a believable first release path.",
     challenge:
@@ -28,6 +31,12 @@ export const caseStudies: CaseStudy[] = [
       "Orilto shaped the product direction, UX flows, system model, engineering approach, AI boundaries, and infrastructure plan.",
     delivered: ["Product architecture", "Marketplace UX flows", "Conversational discovery model", "Application foundation", "AWS-oriented deployment plan"],
     evidence: ["Structured feature inventory", "Architecture diagrams", "Status-based delivery roadmap", "Controlled AI workflow definition"],
+    images: [
+      { src: "/case-studies/telo-hive/hero6.png", alt: "TeloHive event discovery interface visual" },
+      { src: "/case-studies/telo-hive/rooftop-sunset.jpg", alt: "Rooftop event venue at sunset" },
+      { src: "/case-studies/telo-hive/waterfront.jpg", alt: "Waterfront dining venue for events" },
+      { src: "/case-studies/telo-hive/live-music.jpg", alt: "Birthday celebration with live music" }
+    ],
     status: {
       shipped: ["Core product direction", "Initial marketplace workflows", "Authentication and API foundations"],
       inProgress: ["Operations tooling", "Media and notification paths", "AI evaluation controls"],
@@ -50,6 +59,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Giving a specialist hydraulics business a clearer digital presence",
     summary:
       "Translating a practical, industry-specific business into a credible digital experience that helps prospective customers understand its capabilities and make contact.",
+    websiteUrl: "https://www.ravihydraulic.com/",
     tags: ["Positioning", "Information Architecture", "Responsive Design", "Frontend Development"],
     need: "A specialist business needed a clearer way to explain its capabilities and invite relevant enquiries.",
     challenge:
@@ -58,6 +68,11 @@ export const caseStudies: CaseStudy[] = [
       "Orilto clarified the positioning, content hierarchy, responsive interface, and contact path for prospective customers.",
     delivered: ["Positioning structure", "Responsive website direction", "Service hierarchy", "Frontend implementation", "Qualified enquiry path"],
     evidence: ["Clear service presentation", "Responsive layouts", "Direct contact route", "No unsupported growth claims"],
+    images: [
+      { src: "/case-studies/ravi-hydraulics/workshop-mechanic.jpg", alt: "Ravi Hydraulic workshop and maintenance capability" },
+      { src: "/case-studies/ravi-hydraulics/services-crane.jpg", alt: "Heavy machinery and crane operations on a project site" },
+      { src: "/case-studies/ravi-hydraulics/fleet-excavator-1.jpg", alt: "Excavator fleet asset used by Ravi Hydraulic" }
+    ],
     status: {
       shipped: ["Website structure", "Responsive frontend", "Contact path"],
       inProgress: ["Content refinement", "Measurement readiness"],

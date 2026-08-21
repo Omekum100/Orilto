@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { caseStudies } from "@/content/case-studies";
 import { CtaLink } from "@/components/ui/cta-link";
 import { analyticsEvents } from "@/lib/analytics/events";
@@ -19,13 +20,25 @@ export default function WorkPage() {
           <p className="lede">A small set of selected projects. Claims are limited to supplied or observable work, with remaining opportunities named clearly.</p>
         </div>
       </section>
-      <section className="section-tight">
-        <div className="container" style={{ display: "grid", gap: 22 }}>
+      <section className="section-compact">
+        <div className="container case-stack">
           {caseStudies.map((study) => (
             <article className="surface case-preview" key={study.slug}>
               <div className="case-art">
                 <p className="mono eyebrow">{study.client}</p>
-                <div className="diagram-box">{study.tags.slice(0, 3).join(" · ")}</div>
+                <div className="image-mosaic">
+                  {study.images.slice(0, 3).map((image, index) => (
+                    <Image
+                      key={image.src}
+                      src={image.src}
+                      alt={image.alt}
+                      width={index === 0 ? 720 : 360}
+                      height={index === 0 ? 420 : 280}
+                      className="case-image"
+                      sizes="(max-width: 900px) 90vw, 34vw"
+                    />
+                  ))}
+                </div>
                 <div className="status-grid">
                   <div className="status"><b>Shipped</b><br />{study.status.shipped[0]}</div>
                   <div className="status"><b>In progress</b><br />{study.status.inProgress[0]}</div>
@@ -36,7 +49,10 @@ export default function WorkPage() {
                 <h2 className="h3">{study.title}</h2>
                 <p>{study.summary}</p>
                 <div className="tag-row">{study.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
-                <CtaLink href={`/work/${study.slug}`} variant="ghost" event={analyticsEvents.caseStudyOpen} label={study.slug}>Read case study</CtaLink>
+                <div className="case-actions">
+                  <CtaLink href={`/work/${study.slug}`} variant="ghost" event={analyticsEvents.caseStudyOpen} label={study.slug}>Read case study</CtaLink>
+                  <a className="btn btn-secondary" href={study.websiteUrl} target="_blank" rel="noopener noreferrer">Visit website</a>
+                </div>
               </div>
             </article>
           ))}

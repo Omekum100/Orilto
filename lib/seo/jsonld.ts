@@ -10,7 +10,7 @@ export function organizationJsonLd() {
     email: site.email,
     slogan: site.tagline,
     address: { "@type": "PostalAddress", addressCountry: "IN" },
-    sameAs: ["https://www.linkedin.com/company/orilto/"]
+    sameAs: [site.linkedin]
   };
 }
 

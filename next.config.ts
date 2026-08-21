@@ -2,17 +2,25 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  allowedDevOrigins: [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "192.168.1.12",
+    "*.local"
+  ],
   images: {
     formats: ["image/avif", "image/webp"]
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === "development";
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://challenges.cloudflare.com`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self'",
-      "connect-src 'self'",
+      `connect-src 'self'${isDev ? " ws://127.0.0.1:3000 ws://localhost:3000 ws://0.0.0.0:3000" : ""}`,
       "frame-src https://challenges.cloudflare.com",
       "form-action 'self'",
       "base-uri 'self'",

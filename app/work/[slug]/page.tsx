@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
@@ -42,6 +43,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <p className="mono eyebrow">{study.client} case study</p>
           <h1 className="h1">{study.title}</h1>
           <p className="lede muted">{study.summary}</p>
+          <a className="btn btn-secondary page-hero-link" href={study.websiteUrl} target="_blank" rel="noopener noreferrer">Visit website</a>
         </div>
       </section>
       <section className="section-tight">
@@ -50,6 +52,23 @@ export default async function CaseStudyPage({ params }: Props) {
             {["Summary", "Context", "Problem", "Constraints", "Direction", "Contribution", "Experience", "Architecture", "Delivered", "Evidence", "Limits", "Opportunities", "Services"].map((item) => <p key={item}>{item}</p>)}
           </aside>
           <article>
+            <section className="case-section">
+              <h2 className="h3">Product visuals</h2>
+              <div className="case-gallery">
+                {study.images.map((image, index) => (
+                  <Image
+                    key={image.src}
+                    src={image.src}
+                    alt={image.alt}
+                    width={index === 0 ? 1120 : 540}
+                    height={index === 0 ? 640 : 360}
+                    className="case-image"
+                    sizes={index === 0 ? "(max-width: 900px) 90vw, 760px" : "(max-width: 900px) 90vw, 360px"}
+                    priority={index === 0}
+                  />
+                ))}
+              </div>
+            </section>
             <CaseSection title="Opening summary">{study.summary}</CaseSection>
             <CaseSection title="Business context">{study.sections.context}</CaseSection>
             <CaseSection title="Problem">{study.sections.problem}</CaseSection>

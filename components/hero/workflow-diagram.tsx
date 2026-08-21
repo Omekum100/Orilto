@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const nodes = [
   ["Business Intent", "Reduce manual quotation work"],
@@ -10,19 +10,57 @@ const nodes = [
 ] as const;
 
 export function WorkflowDiagram() {
+  const cardRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       setActive(4);
       return;
     }
-    const timers = nodes.map((_, index) => window.setTimeout(() => setActive(index + 1), 180 + index * 360));
-    return () => timers.forEach(window.clearTimeout);
+
+    const card = cardRef.current;
+    if (!card) return;
+
+    let timers: number[] = [];
+    const clearTimers = () => {
+      timers.forEach(window.clearTimeout);
+      timers = [];
+    };
+    const play = () => {
+      clearTimers();
+      setActive(0);
+      timers = nodes.map((_, index) => window.setTimeout(() => setActive(index + 1), 180 + index * 360));
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          play();
+        } else {
+          clearTimers();
+          setActive(0);
+        }
+      },
+      { threshold: 0.42 }
+    );
+
+    observer.observe(card);
+    return () => {
+      clearTimers();
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <div className="workflow-card" aria-label="Business intent to product momentum workflow">
+    <div ref={cardRef} className="workflow-card" aria-label="Business intent to product momentum workflow">
+      <div className={`workflow-toolbar ${active > 0 ? "workflow-toolbar-active" : ""}`} aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <b>Operating system map</b>
+      </div>
       <svg viewBox="0 0 520 620" role="img">
         <title>Business Intent connects to Product Decisions, Reliable System, and Business Momentum.</title>
         {nodes.slice(0, -1).map((_, index) => (
@@ -43,6 +81,16 @@ export function WorkflowDiagram() {
           </g>
         ))}
       </svg>
+      <div className="workflow-metadata" aria-hidden="true">
+        <div>
+          <span className="mono">Release path</span>
+          <strong>Useful first version</strong>
+        </div>
+        <div>
+          <span className="mono">Controls</span>
+          <strong>Risk, cost, review</strong>
+        </div>
+      </div>
     </div>
   );
 }
