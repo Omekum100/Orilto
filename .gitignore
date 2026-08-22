@@ -7,5 +7,6 @@ dist
 test-results
 playwright-report
 coverage
+.design-reference
 *.log
 *.tsbuildinfo

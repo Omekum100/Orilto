@@ -1,207 +1,255 @@
 import Link from "next/link";
-import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
-import { WorkflowDiagram } from "@/components/hero/workflow-diagram";
 import { CtaLink } from "@/components/ui/cta-link";
 import { offers } from "@/content/services";
 import { caseStudies } from "@/content/case-studies";
-import { aiPrinciples, whyOrilto } from "@/content/principles";
-import { trustSignals } from "@/content/site-copy";
+import { site, trustSignals } from "@/content/site-copy";
 import { analyticsEvents } from "@/lib/analytics/events";
-import { LayeredVisual } from "@/components/ui/layered-visual";
-import { Reveal } from "@/components/ui/reveal";
-import { ProcessTimeline } from "@/components/process/process-timeline";
+
+const situations = [
+  {
+    code: "01 / Idea without a product",
+    quote: "We know the opportunity. We cannot yet see the product.",
+    move: "Product Clarity Sprint"
+  },
+  {
+    code: "02 / Work held together manually",
+    quote: "The team is operating through messages, sheets and memory.",
+    move: "Workflow and system map"
+  },
+  {
+    code: "03 / Product that cannot carry the next stage",
+    quote: "The software works, but every change feels risky.",
+    move: "Product and architecture review"
+  },
+  {
+    code: "04 / AI without a useful job",
+    quote: "We want to use AI. We do not want an expensive demo.",
+    move: "AI opportunity and boundary"
+  }
+] as const;
+
+const systemRows = [
+  ["Unclear intent", "A written product decision", "Decide"],
+  ["Scattered work", "One visible workflow", "Connect"],
+  ["Risky delivery", "A releasable product slice", "Build"],
+  ["Hidden status", "Evidence: delivered, verified and supportable", "Verify"]
+] as const;
+
+const evidenceRows = [
+  ["Decision", "Begin with typed discovery and a marketplace-shaped first release."],
+  ["Product", "Consumer discovery, partner workflows, operations tooling and connected APIs."],
+  ["AI boundary", "AI assists discovery; structured tools, guardrails and fallback paths carry the workflow."],
+  ["Evidence", "Delivered capabilities are explained without invented impact claims."]
+] as const;
+
+const aiChecks = ["Job", "Boundary", "Evaluation", "Fallback", "Cost", "Oversight"] as const;
 
 export function HomePage() {
+  const teloHive = caseStudies.find((study) => study.slug === "telo-hive") ?? caseStudies[0];
+  const ravi = caseStudies.find((study) => study.slug === "ravi-hydraulics") ?? caseStudies[1];
+
   return (
-    <>
-      <section className="hero">
-        <div className="container grid-12 hero-grid">
-          <div className="hero-copy">
-            <p className="mono eyebrow">Product engineering + responsible AI</p>
-            <h1 className="h1 hero-tagline">
-              <span className="tagline-row">
-                <span className="tagline-part" data-tone="design">Not just design.</span>
-                <span className="tagline-part" data-tone="code">Not just code.</span>
-              </span>
-              <span className="tagline-part editorial" data-tone="build">We build what grows your business.</span>
-            </h1>
-            <p className="lede muted">Orilto brings product strategy, design, engineering, AI, and cloud delivery together to build digital systems that solve real business problems and continue working beyond the demo.</p>
-            <div className="hero-actions">
-              <CtaLink href="/contact" event={analyticsEvents.primaryCtaClick} label="hero">Tell us what needs to change</CtaLink>
-              <CtaLink href="/work" variant="secondary" event={analyticsEvents.secondaryCtaClick} label="hero">See our work</CtaLink>
+    <main className="draft-home">
+      <section className="draft-hero" aria-labelledby="home-hero-title">
+        <div className="draft-rail" aria-hidden="true"><span />01</div>
+        <div className="container draft-hero-grid">
+          <div className="draft-hero-copy">
+            <p className="mono draft-kicker">Product engineering for business change</p>
+            <h1 id="home-hero-title" className="draft-display">Bring us the mess.</h1>
+            <p className="draft-editorial">We turn it into a system your business can run.</p>
+            <div className="draft-rule" aria-hidden="true" />
+            <p className="draft-body">
+              No perfect brief required. An idea. A bottleneck. A digital gap. We shape the decision, build the product and leave the operating logic visible.
+            </p>
+            <p className="draft-tagline" aria-label={site.tagline}>
+              <span>Not just design.</span>
+              <span>Not just code.</span>
+              <strong>We build what grows your business.</strong>
+            </p>
+            <div className="draft-actions">
+              <CtaLink href="/contact" event={analyticsEvents.primaryCtaClick} label="hero">Describe what should work better</CtaLink>
+              <CtaLink href="#situations" variant="secondary" event={analyticsEvents.secondaryCtaClick} label="hero">Find your starting point</CtaLink>
             </div>
-            <p className="cap-line mono">Strategy / UX / Engineering / AI / Cloud</p>
-            <p className="location">Built in India. Working with ambitious businesses everywhere.</p>
           </div>
-          <div className="hero-visual"><WorkflowDiagram /></div>
-        </div>
-      </section>
 
-      <section className="section operational-band">
-        <div className="container grid-12 split">
-          <Reveal><h2 className="h2">Between the idea and the outcome, important decisions get lost.</h2></Reveal>
-          <div>
-            <Reveal delay={0.06}>
-              <p className="lede">Design providers can struggle to build the product. Development vendors can miss the business reason. AI experiments can look impressive but never become safe, dependable workflows.</p>
-              <p className="copy">Orilto connects business intent to product decisions, product decisions to software, and software to measurable progress.</p>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <LayeredVisual
-                back="/case-studies/ravi-hydraulics/workshop-mechanic.jpg"
-                front="/case-studies/telo-hive/hero6.png"
-                backAlt="Workshop operations that need dependable digital systems"
-                frontAlt="TeloHive product interface visual"
-                label="Operations in the background. Product decisions in front."
-              />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-tight compact-band">
-        <div className="container">
-          <p className="mono eyebrow">Who we help</p>
-          <div className="grid-12 section-grid">
-            <Reveal className="surface lane-card" delay={0.02}>
-              <div className="lane-card-intro"><h3 className="h3">Products that need to become real</h3><p>For founders and teams creating SaaS platforms, marketplaces, internal tools, customer portals, and AI-enabled products.</p></div>
-              <div className="lane-card-action"><p className="muted">The problem is not only building faster. It is deciding what should exist first.</p><Link href="/services" className="btn btn-ghost">Shape the first release</Link></div>
-            </Reveal>
-            <Reveal className="surface lane-card" delay={0.1}>
-              <div className="lane-card-intro"><h3 className="h3">Businesses that need to work better</h3><p>For growing and specialist businesses replacing fragmented workflows, improving customer journeys, or establishing a clearer digital presence.</p></div>
-              <div className="lane-card-action"><p className="muted">The problem is operational friction becoming normal.</p><Link href="/contact" className="btn btn-ghost">Explain the friction</Link></div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="section offer-section">
-        <div className="container">
-          <div className="section-head">
-            <p className="mono eyebrow">Offers</p>
-            <h2 className="h2">Outcome-shaped work, not generic service menus.</h2>
-          </div>
-          <div className="offer-grid">
-            {offers.map((offer, index) => (
-              <Reveal className="surface offer-card" key={offer.title} delay={index * 0.04}>
-                <p className="mono muted">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="h3">{offer.title}</h3>
-                <p>{offer.summary}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="dark section">
-        <div className="container">
-          <p className="mono eyebrow">Featured work</p>
-          <h2 className="h2 featured-work-title">Two examples of practical product judgement.</h2>
-          <div className="case-stack">
-            {caseStudies.map((study) => (
-              <Reveal className="surface case-preview" key={study.slug} delay={0.04} >
-                <div className="case-art">
-                  <p className="mono">{study.client}</p>
-                  <div className="image-mosaic">
-                    {study.images.slice(0, 3).map((image, index) => (
-                      <Image
-                        key={image.src}
-                        src={image.src}
-                        alt={image.alt}
-                        width={index === 0 ? 720 : 360}
-                        height={index === 0 ? 420 : 280}
-                        className="case-image"
-                        sizes="(max-width: 900px) 90vw, 34vw"
-                      />
-                    ))}
-                  </div>
-                  <div className="status-grid">
-                    <div className="status"><b>Shipped</b><br />{study.status.shipped[0]}</div>
-                    <div className="status"><b>In progress</b><br />{study.status.inProgress[0]}</div>
-                    <div className="status"><b>Planned</b><br />{study.status.planned[0]}</div>
-                  </div>
-                </div>
-                <div>
-                  <p className="mono eyebrow">{study.client}</p>
-                  <h3 className="h3">{study.title}</h3>
-                  <p>{study.summary}</p>
-                  <div className="tag-row">{study.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
-                  <div className="details-list">
-                    <div><b>The business need:</b> {study.need}</div>
-                    <div><b>The challenge:</b> {study.challenge}</div>
-                    <div><b>Orilto's contribution:</b> {study.contribution}</div>
-                    <div><b>What was delivered:</b> {study.delivered.join(", ")}</div>
-                    <div><b>Available evidence:</b> {study.evidence.join(", ")}</div>
-                  </div>
-                  <CtaLink href={`/work/${study.slug}`} variant="ghost" event={analyticsEvents.caseStudyOpen} label={study.slug}>Read case study</CtaLink>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section process-section">
-        <div className="container">
-          <p className="mono eyebrow">How Orilto works</p>
-          <h2 className="h2">A calm path from ambiguity to operation.</h2>
-          <ProcessTimeline />
-        </div>
-      </section>
-
-      <section className="section-tight intelligence-band">
-        <div className="container grid-12 split">
-          <div><p className="mono eyebrow">Responsible AI</p><h2 className="h2">AI with a job to do.</h2><p className="lede">Orilto uses AI when it meaningfully reduces friction or increases capability. The work includes boundaries, evaluation, review, cost controls, and fallback behavior.</p></div>
-          <div>
-            <Reveal>
-              <LayeredVisual
-                back="/case-studies/telo-hive/rooftop-sunset.jpg"
-                front="/case-studies/telo-hive/hero6.png"
-                backAlt="Event venue context for a practical AI workflow"
-                frontAlt="AI-enabled venue discovery interface"
-                label="AI supports the workflow. It does not replace judgement."
-              />
-            </Reveal>
-            <div className="ai-flow">
-              {["Input", "AI processing", "Validation", "Human review", "Verified output"].map((step) => <div className="ai-cell" key={step}><p className="mono">{step}</p></div>)}
+          <div className="working-brief" aria-label="Working draft example">
+            <div className="brief-topline">
+              <span className="mono">Messy / working brief 001</span>
+              <b>Live</b>
             </div>
-            <div className="tag-row">{aiPrinciples.map((p) => <span className="tag" key={p}>{p}</span>)}</div>
+            <div className="brief-block">
+              <p className="mono">01 / Rough problem</p>
+              <blockquote>"Our team loses enquiries between WhatsApp, spreadsheets and follow-up."</blockquote>
+            </div>
+            <div className="brief-block brief-warn">
+              <p className="mono">02 / First decision</p>
+              <strong>Sales, operations and every customer waiting for an answer.</strong>
+            </div>
+            <div className="brief-block">
+              <p className="mono">03 / Product move</p>
+              <strong>One visible enquiry workflow before adding automation.</strong>
+            </div>
+            <div className="brief-status">
+              <p className="mono">04 / Evidence sequence</p>
+              <div><span>Capture</span><span>Assign</span><span>Follow up</span></div>
+              <b>Delivered / verified / supportable</b>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section principle-section">
+      <section className="draft-section" id="situations" aria-labelledby="situations-title">
+        <div className="draft-rail" aria-hidden="true"><span />02</div>
         <div className="container">
-          <p className="mono eyebrow">Why Orilto</p>
-          <div className="principles">
-            {whyOrilto.map(([title, text], index) => (
-              <article className="principle-card" key={title} data-tone={index + 1}>
-                <div className="principle-topline">
-                  <span className="principle-number">{String(index + 1).padStart(2, "0")}</span>
-                  <CheckCircle2 className="principle-icon" aria-hidden="true" />
-                </div>
-                <h3>{title}</h3>
-                <p>{text}</p>
+          <div className="draft-two-col draft-section-head">
+            <div>
+              <p className="mono draft-kicker">Recognise the situation</p>
+              <h2 id="situations-title" className="draft-heading">Where does the business break?</h2>
+            </div>
+            <p className="draft-body">Most clients do not arrive asking for a digital transformation. They arrive with a useful tension that has become too expensive to ignore.</p>
+          </div>
+          <div className="situation-register">
+            {situations.map((item) => (
+              <article className="situation-row" key={item.code}>
+                <p className="mono">{item.code}</p>
+                <h3>{item.quote}</h3>
+                <span>{item.move}</span>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="dark section-tight">
+      <section className="draft-section draft-system-section" aria-labelledby="system-title">
+        <div className="draft-rail" aria-hidden="true"><span />03</div>
         <div className="container">
-          <p className="mono eyebrow">Operational trust</p>
-          <h2 className="h2">Credibility without invented proof.</h2>
-          <div className="trust-grid section-grid">{trustSignals.map((signal) => <div className="trust-card" key={signal}>{signal}</div>)}</div>
+          <div className="draft-two-col draft-section-head">
+            <div>
+              <p className="mono draft-kicker">From friction to a working system</p>
+              <h2 id="system-title" className="draft-heading">The product is not the pile of features.</h2>
+            </div>
+            <p className="draft-editorial small">It is the change the business can finally see and operate.</p>
+          </div>
+          <div className="system-table" role="list">
+            {systemRows.map(([before, after, action]) => (
+              <div className="system-row" role="listitem" key={before}>
+                <span>{before}</span>
+                <i aria-hidden="true" />
+                <strong>{after}</strong>
+                <b>{action}</b>
+              </div>
+            ))}
+          </div>
+          <div className="system-summary">
+            <span>A decision</span>
+            <span>A product</span>
+            <span>Evidence</span>
+            <span>Ownership</span>
+          </div>
         </div>
       </section>
 
-      <section className="dark section cta-band">
-        <div className="container grid-12 split">
-          <h2 className="h2">What does your business need next?</h2>
-          <div><p className="lede muted">Tell us where the friction is, what needs to change, or what you are trying to build. We will help identify the smallest useful next step.</p><div className="hero-actions"><CtaLink href="/contact" event={analyticsEvents.primaryCtaClick} label="final">Start a conversation</CtaLink><a className="btn btn-secondary" href="mailto:hello@orilto.com">Email hello@orilto.com</a></div></div>
+      <section className="case-file-section" aria-labelledby="proof-title">
+        <div className="draft-rail dark-rail" aria-hidden="true"><span />04</div>
+        <div className="container">
+          <div className="case-file-head">
+            <div>
+              <p className="mono draft-kicker">One case, opened</p>
+              <h2 id="proof-title" className="draft-heading">Proof should read like a decision trail.</h2>
+            </div>
+            <Link className="draft-button signal" href={`/work/${teloHive.slug}`}>Open case file</Link>
+          </div>
+          <div className="case-file-grid">
+            <div>
+              <p className="mono">Lead case / Telo-Hive</p>
+              <h3>From an event-planning problem to a connected AI-first marketplace.</h3>
+            </div>
+            <blockquote>
+              Help people describe an event naturally and make the answer useful to venues, vendors and operations.
+            </blockquote>
+          </div>
+          <div className="evidence-trail">
+            {evidenceRows.map(([label, text]) => (
+              <div key={label}>
+                <span className="mono">{label}</span>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="secondary-case">
+            <p>Also relevant: {ravi.client} makes a specialist business easier to understand and contact.</p>
+            <Link href={`/work/${ravi.slug}`}>Open file</Link>
+          </div>
         </div>
       </section>
-    </>
+
+      <section className="draft-section" aria-labelledby="offers-title">
+        <div className="draft-rail" aria-hidden="true"><span />05</div>
+        <div className="container">
+          <div className="draft-two-col draft-section-head">
+            <div>
+              <p className="mono draft-kicker">The smallest useful engagement</p>
+              <h2 id="offers-title" className="draft-heading">Start where the uncertainty is.</h2>
+            </div>
+            <p className="draft-body">Orilto does not force every client into a large build. The first engagement should create a useful decision or working outcome.</p>
+          </div>
+          <div className="engagement-register">
+            {offers.map((offer, index) => (
+              <article className="engagement-row" key={offer.title}>
+                <span className="mono">{String.fromCharCode(65 + index)} / {index === 0 ? "Clarify" : index === 1 ? "Explain" : index === 2 ? "Build" : index === 3 ? "Bound" : "Continue"}</span>
+                <h3>{offer.title}</h3>
+                <p>{offer.summary}</p>
+                <Link href="/contact">Discuss this start</Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="draft-section ai-check-section" aria-labelledby="ai-title">
+        <div className="draft-rail" aria-hidden="true"><span />06</div>
+        <div className="container draft-two-col">
+          <div>
+            <p className="mono draft-kicker">AI with a job to do</p>
+            <h2 id="ai-title" className="draft-heading">No AI theatre. No black box.</h2>
+            <p className="draft-body">We use AI when it meaningfully reduces friction or increases capability. The product still needs boundaries, evidence, review and a fallback.</p>
+            <p className="draft-editorial small">If the workflow is not clearer with AI, it does not belong in the first release.</p>
+          </div>
+          <div className="ai-sheet">
+            <p className="mono">AI operating check</p>
+            {aiChecks.map((check, index) => (
+              <div key={check}><span className="mono">{String(index + 1).padStart(2, "0")}</span><strong>{check}</strong></div>
+            ))}
+            <Link href="/services">Evaluate an AI workflow</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="draft-section contact-draft-section" aria-labelledby="contact-title">
+        <div className="draft-rail" aria-hidden="true"><span />07</div>
+        <div className="container draft-two-col">
+          <div>
+            <p className="mono draft-kicker">Start with the rough version</p>
+            <h2 id="contact-title" className="draft-heading">What should work better next?</h2>
+            <p className="draft-body">A useful first message does not need a polished requirements document. Tell us where the friction is, what feels stuck and what a better outcome would look like.</p>
+            <p className="draft-contact"><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></p>
+            <p className="draft-contact"><span>Call</span><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></p>
+          </div>
+          <form className="mini-brief" action="/contact">
+            <p className="mono">Messy / starting brief 001</p>
+            <label>Name<input name="name" placeholder="Your name" /></label>
+            <label>Work email<input name="email" placeholder="you@company.com" /></label>
+            <label>What needs to change?<textarea name="message" placeholder="Describe the friction, affected people and useful outcome..." /></label>
+            <button className="draft-button signal" type="submit">Send the rough version</button>
+          </form>
+        </div>
+      </section>
+
+      <section className="draft-trust-strip" aria-label="Operational trust signals">
+        <div className="container">
+          {trustSignals.map((signal) => <span key={signal}>{signal}</span>)}
+        </div>
+      </section>
+    </main>
   );
 }

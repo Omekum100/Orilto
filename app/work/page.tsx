@@ -39,10 +39,10 @@ export default function WorkPage() {
                     />
                   ))}
                 </div>
-                <div className="status-grid">
-                  <div className="status"><b>Shipped</b><br />{study.status.shipped[0]}</div>
-                  <div className="status"><b>In progress</b><br />{study.status.inProgress[0]}</div>
-                  <div className="status"><b>Planned</b><br />{study.status.planned[0]}</div>
+                <div className="status-grid finished-summary">
+                  <div className="status"><b>Delivered</b><br />{study.delivered[0]}</div>
+                  <div className="status"><b>Contribution</b><br />{study.tags[0]}</div>
+                  <div className="status"><b>Evidence</b><br />{study.evidence[0]}</div>
                 </div>
               </div>
               <div>

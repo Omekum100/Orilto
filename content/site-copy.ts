@@ -10,7 +10,7 @@ export const site = {
   location: "India",
   description:
     "Orilto helps ambitious businesses turn ideas and operational problems into dependable digital products through strategy, UX, engineering, responsible AI, and cloud delivery.",
-  tagline: "Not just design.Not just code. We build what grows your business",
+  tagline: "Not just design. Not just code. We build what grows your business.",
   nav: [
     { href: "/services", label: "Services" },
     { href: "/work", label: "Work" },

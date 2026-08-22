@@ -20,13 +20,13 @@ export const projectTypes = [
 
 export const contactSchema = z.object({
   name: z.string().min(2, "Enter your name."),
-  email: z.string().email("Enter a valid work email.").optional().or(z.literal("")),
-  company: z.string().min(2, "Enter your company name."),
-  change: z.string().min(20, "Describe what needs to change in at least 20 characters.").optional().or(z.literal("")),
+  email: z.string().email("Enter a valid work email."),
+  company: z.string().min(2, "Enter your company name.").optional().or(z.literal("")),
+  change: z.string().min(20, "Describe what needs to change in at least 20 characters."),
   projectType: z.enum(projectTypes),
   timeline: z.string().min(2, "Choose or describe a timeline.").optional().or(z.literal("")),
   budget: z.string().optional(),
-  phone: z.string().trim().regex(/^[+()\-\s\d]{8,20}$/, "Enter a valid phone or WhatsApp number."),
+  phone: z.string().trim().regex(/^[+()\-\s\d]{8,20}$/, "Enter a valid phone or WhatsApp number.").optional().or(z.literal("")),
   consent: z.boolean().refine((value) => value === true, "Please confirm consent before submitting."),
   turnstileToken: z.string().optional()
 });

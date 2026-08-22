@@ -34,13 +34,13 @@ export function ContactForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="surface contact-form-card" aria-describedby="form-status">
         <div className="form-grid">
           <Field label="Name" error={errors.name?.message}><input {...register("name")} autoComplete="name" required minLength={2} onFocus={() => track(analyticsEvents.contactFormStarted)} /></Field>
-          <Field label="Work email" error={errors.email?.message}><input {...register("email")} type="email" autoComplete="email" /></Field>
-          <Field label="Company" error={errors.company?.message}><input {...register("company")} autoComplete="organization" required minLength={2} /></Field>
+          <Field label="Work email" error={errors.email?.message}><input {...register("email")} type="email" autoComplete="email" required /></Field>
+          <Field label="Company (optional)" error={errors.company?.message}><input {...register("company")} autoComplete="organization" minLength={2} /></Field>
           <Field label="Project type" error={errors.projectType?.message}><select {...register("projectType")}>{projectTypes.map((type) => <option key={type}>{type}</option>)}</select></Field>
           <Field label="Timeline" error={errors.timeline?.message}><input {...register("timeline")} placeholder="Now, this quarter, exploring..." /></Field>
           <Field label="Optional budget range" error={errors.budget?.message}><input {...register("budget")} placeholder="Optional" /></Field>
-          <Field label="Contact number" error={errors.phone?.message}><input {...register("phone")} autoComplete="tel" inputMode="tel" required /></Field>
-          <Field label="What needs to change?" error={errors.change?.message} full><textarea {...register("change")} /></Field>
+          <Field label="Contact number (optional)" error={errors.phone?.message}><input {...register("phone")} autoComplete="tel" inputMode="tel" /></Field>
+          <Field label="What needs to change?" error={errors.change?.message} full><textarea {...register("change")} required minLength={20} /></Field>
           <div className="field full">
             <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
               <input type="checkbox" {...register("consent")} required style={{ width: 20, minHeight: 20, marginTop: 4 }} />
