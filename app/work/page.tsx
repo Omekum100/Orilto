@@ -36,6 +36,7 @@ export default function WorkPage() {
                       height={index === 0 ? 420 : 280}
                       className="case-image"
                       sizes="(max-width: 900px) 90vw, 34vw"
+                      quality={index === 0 ? 76 : 72}
                     />
                   ))}
                 </div>
@@ -48,6 +49,24 @@ export default function WorkPage() {
               <div>
                 <h2 className="h3">{study.title}</h2>
                 <p>{study.summary}</p>
+                <dl className="case-signal-list">
+                  <div>
+                    <dt>Situation</dt>
+                    <dd>{study.need}</dd>
+                  </div>
+                  <div>
+                    <dt>Contribution</dt>
+                    <dd>{study.contribution}</dd>
+                  </div>
+                  <div>
+                    <dt>Evidence</dt>
+                    <dd>{study.evidence[0]}</dd>
+                  </div>
+                  <div>
+                    <dt>Limits</dt>
+                    <dd>{study.sections.limitations}</dd>
+                  </div>
+                </dl>
                 <div className="tag-row">{study.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
                 <div className="case-actions">
                   <CtaLink href={`/work/${study.slug}`} variant="ghost" event={analyticsEvents.caseStudyOpen} label={study.slug}>Read case study</CtaLink>

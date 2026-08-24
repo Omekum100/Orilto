@@ -9,18 +9,48 @@ import { analyticsEvents } from "@/lib/analytics/events";
 import { site } from "@/content/site-copy";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusMessage, setStatusMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ContactInput>({
+  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: { projectType: "Not sure yet", consent: false }
   });
 
-  function onSubmit(_data: ContactInput) {
-    setStatus("success");
-    setShowToast(true);
-    window.setTimeout(() => setShowToast(false), 7000);
-    track(analyticsEvents.contactFormSubmitted);
+  async function onSubmit(data: ContactInput) {
+    setStatus("idle");
+    setStatusMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        if (result.issues && typeof result.issues === "object") {
+          Object.entries(result.issues).forEach(([field, messages]) => {
+            const message = Array.isArray(messages) ? messages[0] : undefined;
+            if (message) setError(field as keyof ContactInput, { type: "server", message });
+          });
+        }
+        setStatus("error");
+        setStatusMessage(result.message ?? "The enquiry could not be sent. Please email hello@orilto.com.");
+        return;
+      }
+
+      reset({ projectType: "Not sure yet", consent: false });
+      setStatus("success");
+      setStatusMessage(result.message ?? "Thanks. Your enquiry has been received.");
+      setShowToast(true);
+      window.setTimeout(() => setShowToast(false), 7000);
+      track(analyticsEvents.contactFormSubmitted);
+    } catch {
+      setStatus("error");
+      setStatusMessage("The enquiry could not be sent. Please email hello@orilto.com.");
+    }
   }
 
   return (
@@ -33,14 +63,14 @@ export function ContactForm() {
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="surface contact-form-card" aria-describedby="form-status">
         <div className="form-grid">
-          <Field label="Name" error={errors.name?.message}><input {...register("name")} autoComplete="name" required minLength={2} onFocus={() => track(analyticsEvents.contactFormStarted)} /></Field>
+          <Field label="Name" error={errors.name?.message}><input {...register("name")} autoComplete="name" required onFocus={() => track(analyticsEvents.contactFormStarted)} /></Field>
           <Field label="Work email" error={errors.email?.message}><input {...register("email")} type="email" autoComplete="email" required /></Field>
-          <Field label="Company (optional)" error={errors.company?.message}><input {...register("company")} autoComplete="organization" minLength={2} /></Field>
+          <Field label="What needs to change?" error={errors.change?.message} full><textarea {...register("change")} required placeholder="Describe the friction, who it affects, and what a useful outcome would look like." /></Field>
           <Field label="Project type" error={errors.projectType?.message}><select {...register("projectType")}>{projectTypes.map((type) => <option key={type}>{type}</option>)}</select></Field>
           <Field label="Timeline" error={errors.timeline?.message}><input {...register("timeline")} placeholder="Now, this quarter, exploring..." /></Field>
-          <Field label="Optional budget range" error={errors.budget?.message}><input {...register("budget")} placeholder="Optional" /></Field>
+          <Field label="Company (optional)" error={errors.company?.message}><input {...register("company")} autoComplete="organization" /></Field>
           <Field label="Contact number (optional)" error={errors.phone?.message}><input {...register("phone")} autoComplete="tel" inputMode="tel" /></Field>
-          <Field label="What needs to change?" error={errors.change?.message} full><textarea {...register("change")} required minLength={20} /></Field>
+          <Field label="Optional budget range" error={errors.budget?.message}><input {...register("budget")} placeholder="Optional" /></Field>
           <div className="field full">
             <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
               <input type="checkbox" {...register("consent")} required style={{ width: 20, minHeight: 20, marginTop: 4 }} />
@@ -55,9 +85,10 @@ export function ContactForm() {
         <div id="form-status" role="status" aria-live="polite">
           {status === "success" && (
             <p className="form-status">
-              Thanks. Your details are validated. Please contact <a href={site.detailsPhoneHref}>{site.detailsPhone}</a> for more details.
+              {statusMessage} For faster assistance, call <a href={site.detailsPhoneHref}>{site.detailsPhone}</a>.
             </p>
           )}
+          {status === "error" && <p className="form-status error-text">{statusMessage}</p>}
         </div>
       </form>
     </>

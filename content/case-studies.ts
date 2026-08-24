@@ -32,7 +32,7 @@ export const caseStudies: CaseStudy[] = [
     delivered: ["Product architecture", "Marketplace UX flows", "Conversational discovery model", "Application foundation", "AWS-oriented deployment plan"],
     evidence: ["Structured feature inventory", "Architecture diagrams", "Status-based delivery roadmap", "Controlled AI workflow definition"],
     images: [
-      { src: "/case-studies/telo-hive/hero6.png", alt: "TeloHive event discovery interface visual" },
+      { src: "/case-studies/telo-hive/hero6.webp", alt: "TeloHive event discovery interface visual" },
       { src: "/case-studies/telo-hive/rooftop-sunset.jpg", alt: "Rooftop event venue at sunset" },
       { src: "/case-studies/telo-hive/waterfront.jpg", alt: "Waterfront dining venue for events" },
       { src: "/case-studies/telo-hive/live-music.jpg", alt: "Birthday celebration with live music" }

@@ -1,21 +1,14 @@
 import { z } from "zod";
 
 export const projectTypes = [
+  "Not sure yet",
   "Product clarity",
   "Website or digital presence",
   "New product build",
   "AI workflow",
   "Existing product improvement",
   "Ongoing engineering partnership",
-  "UX/UI design",
-  "Cloud and reliability",
-  "E-commerce or marketplace",
-  "Internal tool or portal",
-  "Website redesign",
-  "Maintenance and support",
-  "Consulting or audit",
-  "Other",
-  "Not sure yet"
+  "Other"
 ] as const;
 
 export const contactSchema = z.object({

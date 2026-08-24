@@ -7,5 +7,5 @@ export default function PrivacyPage() {
 }
 
 function Policy({ title, items }: { title: string; items: string[] }) {
-  return <section className="page-hero"><div className="container"><p className="mono eyebrow">Orilto</p><h1 className="h1">{title}</h1><div className="copy">{items.map((item) => <p key={item}>{item}</p>)}</div></div></section>;
+  return <section className="page-hero legal-page"><div className="container"><p className="mono eyebrow">Orilto</p><h1 className="h1">{title}</h1><div className="copy">{items.map((item) => <p key={item}>{item}</p>)}</div></div></section>;
 }

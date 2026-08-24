@@ -14,6 +14,7 @@ export function Header() {
   const nav = site.nav;
   const [menuOpen, setMenuOpen] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -21,12 +22,36 @@ export function Header() {
 
   useEffect(() => {
     if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !drawerRef.current) return;
+      const focusable = Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [menuOpen]);
 
   return (
@@ -57,7 +82,7 @@ export function Header() {
             </button>
             {menuOpen && <button className="mobile-overlay" aria-label="Close navigation" onClick={() => setMenuOpen(false)} type="button" />}
             {menuOpen && (
-            <div className="mobile-drawer" role="dialog" aria-label="Mobile navigation">
+            <div className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" ref={drawerRef}>
               <div className="mobile-drawer-top">
                 <Brand compact />
                 <button ref={closeButtonRef} className="mobile-drawer-label mono" onClick={() => setMenuOpen(false)} type="button">Close</button>

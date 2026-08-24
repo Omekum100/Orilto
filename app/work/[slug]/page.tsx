@@ -64,6 +64,7 @@ export default async function CaseStudyPage({ params }: Props) {
                     height={index === 0 ? 640 : 360}
                     className="case-image"
                     sizes={index === 0 ? "(max-width: 900px) 90vw, 760px" : "(max-width: 900px) 90vw, 360px"}
+                    quality={index === 0 ? 76 : 72}
                     priority={index === 0}
                   />
                 ))}

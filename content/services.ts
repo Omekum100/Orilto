@@ -14,23 +14,38 @@ export type Service = {
 export const offers = [
   {
     title: "Product Clarity Sprint",
-    summary: "Turn an unclear opportunity into a validated direction, first release, risk map, and actionable plan."
+    summary: "Turn an unclear opportunity into a validated direction, first release, risk map, and actionable plan.",
+    bestFor: "A useful idea or process problem with no settled product direction.",
+    firstOutput: "A buildable first-release brief with priorities, risks, and acceptance criteria.",
+    notRight: "When the scope is already fixed and only extra delivery capacity is needed."
   },
   {
     title: "Digital Presence Sprint",
-    summary: "Create clear positioning, a premium responsive website, a qualified enquiry path, and launch-ready measurement."
+    summary: "Create clear positioning, a premium responsive website, a qualified enquiry path, and launch-ready measurement.",
+    bestFor: "Specialist businesses that need clearer credibility, services, and enquiries.",
+    firstOutput: "A launch-ready website structure with content, responsive UI, and measurement.",
+    notRight: "When the need is only a logo refresh or decorative landing page."
   },
   {
     title: "Product Build",
-    summary: "Design, engineer, test, deploy, and document a meaningful first product release."
+    summary: "Design, engineer, test, deploy, and document a meaningful first product release.",
+    bestFor: "Teams ready to move from direction into a real working release.",
+    firstOutput: "A tested product increment with deployment and handover notes.",
+    notRight: "When the business problem, users, or release boundary are still unclear."
   },
   {
     title: "AI Opportunity and Build Sprint",
-    summary: "Identify a useful AI opportunity, prove it safely, define evaluation and cost controls, and deliver a production-ready slice."
+    summary: "Identify a useful AI opportunity, prove it safely, define evaluation and cost controls, and deliver a production-ready slice.",
+    bestFor: "Teams exploring AI but needing a real job, guardrails, and fallback.",
+    firstOutput: "A controlled AI workflow with evaluation, cost, privacy, and review boundaries.",
+    notRight: "When the goal is an impressive demo without operational ownership."
   },
   {
     title: "Product Engineering Partnership",
-    summary: "Provide ongoing product and engineering leadership with a clear roadmap, delivery cadence, and capacity boundary."
+    summary: "Provide ongoing product and engineering leadership with a clear roadmap, delivery cadence, and capacity boundary.",
+    bestFor: "Businesses that need steady product and engineering capability after launch.",
+    firstOutput: "A visible roadmap, delivery rhythm, technical backlog, and support boundary.",
+    notRight: "When the work is a one-off task with no product ownership need."
   }
 ];
 

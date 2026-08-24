@@ -44,6 +44,20 @@ export default function ServicesPage() {
               <p className="mono muted">{String(index + 1).padStart(2, "0")}</p>
               <h2 className="h3">{offer.title}</h2>
               <p>{offer.summary}</p>
+              <dl className="offer-fit-list">
+                <div>
+                  <dt>Best for</dt>
+                  <dd>{offer.bestFor}</dd>
+                </div>
+                <div>
+                  <dt>First output</dt>
+                  <dd>{offer.firstOutput}</dd>
+                </div>
+                <div>
+                  <dt>Not right when</dt>
+                  <dd>{offer.notRight}</dd>
+                </div>
+              </dl>
               <CtaLink href="/contact" variant="ghost" event={analyticsEvents.serviceEnquiryClick} label={offer.title}>Discuss this offer</CtaLink>
             </article>
           ))}

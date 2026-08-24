@@ -4,7 +4,7 @@ export const metadata: Metadata = { title: "Terms", description: "Orilto website
 
 export default function TermsPage() {
   return (
-    <section className="page-hero terms-page">
+    <section className="page-hero terms-page legal-page">
       <div className="container terms-layout">
         <div className="terms-heading">
           <p className="mono eyebrow">Orilto</p>

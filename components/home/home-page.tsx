@@ -4,6 +4,7 @@ import { offers } from "@/content/services";
 import { caseStudies } from "@/content/case-studies";
 import { site, trustSignals } from "@/content/site-copy";
 import { analyticsEvents } from "@/lib/analytics/events";
+import { WorkingBriefSlideshow } from "@/components/home/working-brief-slideshow";
 
 const situations = [
   {
@@ -49,52 +50,31 @@ export function HomePage() {
   const ravi = caseStudies.find((study) => study.slug === "ravi-hydraulics") ?? caseStudies[1];
 
   return (
-    <main className="draft-home">
+    <div className="draft-home">
       <section className="draft-hero" aria-labelledby="home-hero-title">
         <div className="draft-rail" aria-hidden="true"><span />01</div>
         <div className="container draft-hero-grid">
           <div className="draft-hero-copy">
-            <p className="mono draft-kicker">Product engineering for business change</p>
-            <h1 id="home-hero-title" className="draft-display">Bring us the mess.</h1>
-            <p className="draft-editorial">We turn it into a system your business can run.</p>
+            <p className="mono draft-kicker">Product strategy · engineering · responsible AI</p>
+            <h1 id="home-hero-title" className="draft-display">The brief can come later.</h1>
+            <p className="draft-editorial">Start with what your business needs to change.</p>
             <div className="draft-rule" aria-hidden="true" />
-            <p className="draft-body">
-              No perfect brief required. An idea. A bottleneck. A digital gap. We shape the decision, build the product and leave the operating logic visible.
-            </p>
+            <div className="draft-body draft-hero-description">
+              <p>An opportunity taking shape. A process slowing the team down. Software that no longer fits.</p>
+              <p>We help you understand what matters, decide what should be built, and deliver a dependable system your team can use in the real world.</p>
+            </div>
             <p className="draft-tagline" aria-label={site.tagline}>
               <span>Not just design.</span>
               <span>Not just code.</span>
               <strong>We build what grows your business.</strong>
             </p>
             <div className="draft-actions">
-              <CtaLink href="/contact" event={analyticsEvents.primaryCtaClick} label="hero">Describe what should work better</CtaLink>
+              <CtaLink href="/contact" event={analyticsEvents.primaryCtaClick} label="hero">Tell us what should work better</CtaLink>
               <CtaLink href="#situations" variant="secondary" event={analyticsEvents.secondaryCtaClick} label="hero">Find your starting point</CtaLink>
             </div>
           </div>
 
-          <div className="working-brief" aria-label="Working draft example">
-            <div className="brief-topline">
-              <span className="mono">Messy / working brief 001</span>
-              <b>Live</b>
-            </div>
-            <div className="brief-block">
-              <p className="mono">01 / Rough problem</p>
-              <blockquote>"Our team loses enquiries between WhatsApp, spreadsheets and follow-up."</blockquote>
-            </div>
-            <div className="brief-block brief-warn">
-              <p className="mono">02 / First decision</p>
-              <strong>Sales, operations and every customer waiting for an answer.</strong>
-            </div>
-            <div className="brief-block">
-              <p className="mono">03 / Product move</p>
-              <strong>One visible enquiry workflow before adding automation.</strong>
-            </div>
-            <div className="brief-status">
-              <p className="mono">04 / Evidence sequence</p>
-              <div><span>Capture</span><span>Assign</span><span>Follow up</span></div>
-              <b>Delivered / verified / supportable</b>
-            </div>
-          </div>
+          <WorkingBriefSlideshow />
         </div>
       </section>
 
@@ -250,6 +230,6 @@ export function HomePage() {
           {trustSignals.map((signal) => <span key={signal}>{signal}</span>)}
         </div>
       </section>
-    </main>
+    </div>
   );
 }
