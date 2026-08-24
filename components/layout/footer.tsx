@@ -6,8 +6,15 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="dark site-footer">
-      <div className="container footer-grid">
+      <div className="container footer-callout">
         <div>
+          <p className="mono eyebrow">Start with the rough version</p>
+          <h2>Have a useful problem to solve?</h2>
+        </div>
+        <Link className="footer-cta" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link>
+      </div>
+      <div className="container footer-grid">
+        <div className="footer-brand-block">
           <Brand />
           <p className="copy muted">{site.description}</p>
         </div>
