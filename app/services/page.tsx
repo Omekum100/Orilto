@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { offers, services } from "@/content/services";
-import { CtaLink } from "@/components/ui/cta-link";
-import { analyticsEvents } from "@/lib/analytics/events";
+import { services } from "@/content/services";
+import { ServiceStartSelector } from "@/components/services/service-start-selector";
 import { serviceJsonLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = {
@@ -38,30 +37,7 @@ export default function ServicesPage() {
             <p className="mono eyebrow">Choose your starting point</p>
             <p>Start with the constraint you feel most clearly. We shape the engagement around the outcome, not a fixed list of deliverables.</p>
           </div>
-          <div className="offer-grid services-offer-grid">
-          {offers.map((offer, index) => (
-            <article className="surface offer-card service-offer-card" key={offer.title}>
-              <p className="mono muted">{String(index + 1).padStart(2, "0")}</p>
-              <h2 className="h3">{offer.title}</h2>
-              <p>{offer.summary}</p>
-              <dl className="offer-fit-list">
-                <div>
-                  <dt>Best for</dt>
-                  <dd>{offer.bestFor}</dd>
-                </div>
-                <div>
-                  <dt>First output</dt>
-                  <dd>{offer.firstOutput}</dd>
-                </div>
-                <div>
-                  <dt>Not right when</dt>
-                  <dd>{offer.notRight}</dd>
-                </div>
-              </dl>
-              <CtaLink href="/contact" variant="ghost" event={analyticsEvents.serviceEnquiryClick} label={offer.title}>Discuss this offer</CtaLink>
-            </article>
-          ))}
-          </div>
+          <ServiceStartSelector />
         </div>
       </section>
       <section className="section-compact operational-band">
