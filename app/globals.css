@@ -2527,7 +2527,7 @@ body {
   display: grid;
   grid-template-columns: minmax(0, .95fr) minmax(360px, .82fr);
   gap: clamp(38px, 6vw, 86px);
-  align-items: start;
+  align-items: stretch;
 }
 
 .draft-rail {
@@ -3822,11 +3822,16 @@ body {
 }
 
 .working-brief-slideshow {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  height: 650px;
-  min-height: 650px;
+  height: auto;
+  min-height: 540px;
+  padding: clamp(22px, 2.5vw, 28px);
   overflow: hidden;
+  color: var(--orilto-ink);
+  background: rgba(255,253,246,.64);
   touch-action: pan-y;
 }
 
@@ -3840,9 +3845,23 @@ body {
   outline-offset: 5px;
 }
 
+.working-brief-slideshow .brief-topline {
+  position: relative;
+  z-index: 2;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  border-bottom-color: rgba(21,21,21,.22);
+}
+
+.working-brief-slideshow .brief-topline .mono {
+  color: var(--orilto-ink);
+}
+
 .working-brief-slideshow .working-brief-slide {
+  position: relative;
+  z-index: 2;
   display: flex;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   min-height: 0;
   flex-direction: column;
   overflow: visible;
@@ -3904,6 +3923,57 @@ body {
   font-size: 15px;
 }
 
+.brief-short-copy {
+  display: grid;
+  align-content: end;
+  gap: 18px;
+  max-width: 390px;
+  margin-top: auto;
+  padding-bottom: clamp(22px, 2.5vw, 34px);
+}
+
+.brief-short-copy h2 {
+  max-width: 11.5ch;
+  margin: 0;
+  color: var(--orilto-ink);
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-size: clamp(42px, 3.8vw, 60px);
+  line-height: 1;
+  font-weight: 850;
+  text-shadow: 0 1px 0 rgba(255,253,246,.56), 0 16px 42px rgba(255,253,246,.5);
+}
+
+.brief-short-copy > p:not(.mono) {
+  max-width: 42ch;
+  margin: 0;
+  color: rgba(21,21,21,.78);
+  font-size: clamp(17px, 1.25vw, 20px);
+  line-height: 1.45;
+  text-shadow: 0 1px 0 rgba(255,253,246,.5);
+}
+
+.brief-move {
+  display: grid;
+  gap: 8px;
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+  padding-top: 18px;
+  border-top: 1px solid rgba(21,21,21,.2);
+  max-width: 390px;
+}
+
+.brief-move .mono {
+  color: rgba(21,21,21,.82);
+}
+
+.brief-move strong {
+  color: var(--orilto-signal);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 850;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
 .working-brief-controls {
   position: relative;
   z-index: 2;
@@ -3911,10 +3981,37 @@ body {
   grid-template-columns: 34px minmax(0, 1fr) 34px;
   gap: 10px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid rgba(21,21,21,.18);
-  background: rgba(255,253,246,.92);
+  background: rgba(255,253,246,.72);
+  backdrop-filter: blur(10px);
+}
+
+.brief-slide-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--orilto-paper);
+}
+
+.brief-slide-visual:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(255,253,246,.84) 0%, rgba(255,253,246,.58) 48%, rgba(255,253,246,.08) 100%),
+    linear-gradient(0deg, rgba(255,253,246,.66) 0%, rgba(255,253,246,.1) 46%, rgba(255,253,246,.54) 100%);
+}
+
+.brief-slide-visual img {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.96) contrast(1.04);
 }
 
 .brief-arrow,
@@ -3929,7 +4026,7 @@ body {
 .brief-arrow {
   width: 34px;
   height: 32px;
-  background: rgba(255,253,246,.78);
+  background: rgba(255,253,246,.68);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 17px;
   font-weight: 850;
@@ -3978,8 +4075,8 @@ body {
 
 @media (max-width: 640px) {
   .working-brief-slideshow {
-    height: 700px;
-    min-height: 700px;
+    height: 520px;
+    min-height: 520px;
     padding: 16px;
   }
 
@@ -4029,6 +4126,38 @@ body {
   .working-brief-slideshow .brief-arrow {
     width: 32px;
     height: 30px;
+  }
+
+  .brief-short-copy {
+    gap: 12px;
+    max-width: 280px;
+    padding-bottom: 18px;
+  }
+
+  .brief-short-copy h2 {
+    max-width: 13ch;
+    font-size: clamp(36px, 12vw, 46px);
+  }
+
+  .brief-short-copy > p:not(.mono) {
+    font-size: 16px;
+  }
+
+  .brief-move {
+    gap: 6px;
+    max-width: 280px;
+    margin-bottom: 18px;
+    padding-top: 12px;
+  }
+
+  .brief-move strong {
+    font-size: 12px;
+  }
+
+  .brief-slide-visual:after {
+    background:
+      linear-gradient(90deg, rgba(255,253,246,.84) 0%, rgba(255,253,246,.6) 64%, rgba(255,253,246,.12) 100%),
+      linear-gradient(0deg, rgba(255,253,246,.68) 0%, rgba(255,253,246,.12) 45%, rgba(255,253,246,.56) 100%);
   }
 }
 

@@ -1,62 +1,75 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type WorkingBriefSlide = {
   key: string;
   label: string;
-  situation: string;
-  affects: string;
-  firstMove: string;
-  flow: string[];
-  outcome: string;
+  headline: string;
+  description: string;
+  move: string;
+  image: {
+    src: string;
+    alt: string;
+  };
 };
 
 const workingBriefSlides: WorkingBriefSlide[] = [
   {
     key: "enquiries",
-    label: "Enquiries",
-    situation: "Enquiries arrive through WhatsApp, calls and email. Follow-up depends on memory.",
-    affects: "Sales visibility, response time and customer confidence.",
-    firstMove: "Create one visible enquiry workflow before adding automation.",
-    flow: ["Capture", "Assign", "Follow up"],
-    outcome: "Every enquiry has an owner, a status and a clear next step."
+    label: "Leads arrive everywhere",
+    headline: "Leads arrive everywhere.",
+    description: "Calls, messages and emails make ownership and follow-up difficult to see.",
+    move: "One visible enquiry flow",
+    image: {
+      src: "/business-situations/enquiry-flow.png",
+      alt: "Messages, calls and email represented as connected enquiry inputs."
+    }
   },
   {
     key: "operations",
-    label: "Operations",
-    situation: "Orders, approvals and updates are spread across spreadsheets and conversations.",
-    affects: "Teams repeat work, wait for updates and make decisions using different information.",
-    firstMove: "Connect the process through one shared operational view.",
-    flow: ["Request", "Approve", "Track"],
-    outcome: "Everyone can see the same request, owner, status and next action."
+    label: "Work lives in too many places",
+    headline: "Work lives in too many places.",
+    description: "Orders, approvals and updates are spread across spreadsheets and conversations.",
+    move: "One shared operational view",
+    image: {
+      src: "/business-situations/bounded-workflow.png",
+      alt: "A connected workflow board bringing scattered work into one visible process."
+    }
   },
   {
     key: "new-product",
-    label: "New product idea",
-    situation: "We understand the opportunity, but we cannot yet see the right first product.",
-    affects: "The team discusses features before agreeing on the first useful outcome.",
-    firstMove: "Define the user, core purpose and smallest useful first release.",
-    flow: ["Clarify", "Prioritise", "Validate"],
-    outcome: "A clear, buildable first release with priorities and risks visible."
+    label: "The idea is clear. The product isn't",
+    headline: "The idea is clear. The product isn't.",
+    description: "Turn business intent into a focused, buildable first release.",
+    move: "A clear product direction",
+    image: {
+      src: "/business-situations/product-clarity.png",
+      alt: "Product notes and interface sketches arranged into a clearer product direction."
+    }
   },
   {
     key: "existing-software",
-    label: "Existing software",
-    situation: "The software works, but every change takes too long and feels risky.",
-    affects: "Delivery slows down because dependencies, risks and ownership are unclear.",
-    firstMove: "Review the product and architecture, then stabilise the next meaningful release.",
-    flow: ["Review", "Stabilise", "Release"],
-    outcome: "A clearer roadmap and a safer delivery path the team can act on."
+    label: "Every change feels risky",
+    headline: "Every change feels risky.",
+    description: "Untangle dependencies and create a more dependable release path.",
+    move: "A safer way forward",
+    image: {
+      src: "/business-situations/stable-release.png",
+      alt: "Tangled dependencies becoming a more organised release path."
+    }
   },
   {
     key: "ai-opportunity",
-    label: "AI opportunity",
-    situation: "We want to use AI, but we do not want to build an expensive demonstration.",
-    affects: "Time and budget can be spent without a clear operational role or success measure.",
-    firstMove: "Give AI one defined job, boundary, evaluation method and fallback.",
-    flow: ["Define", "Bound", "Evaluate"],
-    outcome: "A controlled AI workflow that can be tested responsibly in real use."
+    label: "AI needs a real job",
+    headline: "AI needs a real job.",
+    description: "Define its role, limits, evaluation and fallback before building.",
+    move: "Responsible AI in real use",
+    image: {
+      src: "/business-situations/bounded-workflow.png",
+      alt: "A bounded workflow with review points and a controlled evaluation path."
+    }
   }
 ];
 
@@ -90,7 +103,7 @@ export function WorkingBriefSlideshow() {
   };
 
   const moveBy = (direction: -1 | 1) => {
-    moveTo(activeIndex + direction);
+    setActiveIndex((current) => (current + direction + workingBriefSlides.length) % workingBriefSlides.length);
   };
 
   return (
@@ -128,31 +141,29 @@ export function WorkingBriefSlideshow() {
         swipeStartX.current = null;
       }}
     >
+      <figure className="brief-slide-visual" key={`${slide.key}-image`} aria-hidden="true">
+        <Image
+          src={slide.image.src}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 90vw, 44vw"
+          priority={activeIndex === 0}
+        />
+      </figure>
+
       <div className="brief-topline">
         <span className="mono">Common business situation</span>
-        <b>{formatCounter(activeIndex)} / {String(workingBriefSlides.length).padStart(2, "0")}</b>
+        <b>{formatCounter(activeIndex)}/{String(workingBriefSlides.length).padStart(2, "0")}</b>
       </div>
 
       <div className="working-brief-slide" key={slide.key} aria-live="off">
-        <div className="brief-block">
-          <p className="mono">01 / Business situation</p>
-          <blockquote>{slide.situation}</blockquote>
+        <div className="brief-short-copy">
+          <h2>{slide.headline}</h2>
+          <p>{slide.description}</p>
         </div>
-        <div className="brief-block brief-warn">
-          <p className="mono">02 / What it affects</p>
-          <strong>{slide.affects}</strong>
-        </div>
-        <div className="brief-block">
-          <p className="mono">03 / First product move</p>
-          <strong>{slide.firstMove}</strong>
-        </div>
-        <div className="brief-status">
-          <p className="mono">04 / Working flow</p>
-          <div className="brief-flow">{slide.flow.map((step) => <span key={step}>{step}</span>)}</div>
-          <div className="brief-outcome">
-            <b>Useful outcome</b>
-            <strong>{slide.outcome}</strong>
-          </div>
+        <div className="brief-move">
+          <span className="mono">Orilto move</span>
+          <strong>{slide.move}</strong>
         </div>
       </div>
 
@@ -174,7 +185,7 @@ export function WorkingBriefSlideshow() {
       </div>
 
       <span className="sr-only" aria-live="polite" aria-atomic="true">
-        Business situation {formatCounter(activeIndex)} of {String(workingBriefSlides.length).padStart(2, "0")}: {slide.label}.
+        Business situation {formatCounter(activeIndex)} of {String(workingBriefSlides.length).padStart(2, "0")}: {slide.headline}
       </span>
     </div>
   );
