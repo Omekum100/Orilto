@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CtaLink } from "@/components/ui/cta-link";
 import { offers } from "@/content/services";
 import { caseStudies } from "@/content/case-studies";
 import { site, trustSignals } from "@/content/site-copy";
 import { analyticsEvents } from "@/lib/analytics/events";
-import { WorkingBriefSlideshow } from "@/components/home/working-brief-slideshow";
+import { HeroMottoTypewriter } from "@/components/home/hero-motto-typewriter";
 
 const situations = [
   {
@@ -45,6 +46,43 @@ const evidenceRows = [
 
 const aiChecks = ["Job", "Boundary", "Evaluation", "Fallback", "Cost", "Oversight"] as const;
 
+const heroMottos = [
+  {
+    code: "01",
+    label: "Idea to growth",
+    text: "Turn ideas into products."
+  },
+  {
+    code: "02",
+    label: "Brand product",
+    text: "Make products feel credible."
+  },
+  {
+    code: "03",
+    label: "AI roadmap",
+    text: "Make daily work easier."
+  }
+] as const;
+
+const heroCollageImages = [
+  {
+    src: "/business-situations/enquiry-flow.png",
+    alt: "Connected enquiry inputs across calls, messages and email."
+  },
+  {
+    src: "/business-situations/product-clarity.png",
+    alt: "Product notes and interface sketches arranged into a clear direction."
+  },
+  {
+    src: "/business-situations/stable-release.png",
+    alt: "A visual release path from tangled dependencies to clearer delivery."
+  },
+  {
+    src: "/business-situations/bounded-workflow.png",
+    alt: "A bounded workflow with review points and connected operational steps."
+  }
+] as const;
+
 export function HomePage() {
   const teloHive = caseStudies.find((study) => study.slug === "telo-hive") ?? caseStudies[0];
   const ravi = caseStudies.find((study) => study.slug === "ravi-hydraulics") ?? caseStudies[1];
@@ -52,12 +90,24 @@ export function HomePage() {
   return (
     <div className="draft-home">
       <section className="draft-hero" aria-labelledby="home-hero-title">
+        <div className="hero-collage" aria-hidden="true">
+          {heroCollageImages.map((image, index) => (
+            <figure className={`hero-collage-frame frame-${index + 1}`} key={image.src}>
+              <Image
+                src={image.src}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 60vw, 34vw"
+                priority={index === 0}
+              />
+            </figure>
+          ))}
+        </div>
         <div className="draft-rail" aria-hidden="true"><span />01</div>
         <div className="container draft-hero-grid">
           <div className="draft-hero-copy">
             <p className="mono draft-kicker">Product strategy · engineering · responsible AI</p>
-            <h1 id="home-hero-title" className="draft-display">The brief can come later.</h1>
-            <p className="draft-editorial">Start with what your business needs to change.</p>
+            <HeroMottoTypewriter headingId="home-hero-title" mottos={heroMottos} />
             <div className="draft-rule" aria-hidden="true" />
             <div className="draft-body draft-hero-description">
               <p>An opportunity taking shape. A process slowing the team down. Software that no longer fits.</p>
@@ -73,8 +123,6 @@ export function HomePage() {
               <CtaLink href="#situations" variant="secondary" event={analyticsEvents.secondaryCtaClick} label="hero">Find your starting point</CtaLink>
             </div>
           </div>
-
-          <WorkingBriefSlideshow />
         </div>
       </section>
 
