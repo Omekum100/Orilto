@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/content/site-copy";
+import { oriltoStarts, site } from "@/content/site-copy";
 import { Brand } from "@/components/layout/brand";
 
 export function Footer() {
@@ -13,6 +13,14 @@ export function Footer() {
         </div>
         <Link className="footer-cta" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link>
       </div>
+      <nav className="container footer-starts" aria-label="Choose a starting point">
+        {oriltoStarts.map((start) => (
+          <Link href="/contact" key={start.code}>
+            <span className="mono">{start.code}</span>
+            <strong>{start.label}</strong>
+          </Link>
+        ))}
+      </nav>
       <div className="container footer-grid">
         <div className="footer-brand-block">
           <Brand />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { services } from "@/content/services";
+import { oriltoStarts } from "@/content/site-copy";
 import { ServiceStartSelector } from "@/components/services/service-start-selector";
 import { serviceJsonLd } from "@/lib/seo/jsonld";
 
@@ -23,10 +24,13 @@ export default function ServicesPage() {
           <aside className="service-hero-index" aria-label="How Orilto helps">
             <p className="mono">One partner, from friction to follow-through</p>
             <ol>
-              <li><span>01</span><strong>Clarify the opportunity</strong></li>
-              <li><span>02</span><strong>Design the right experience</strong></li>
-              <li><span>03</span><strong>Build a useful release</strong></li>
-              <li><span>04</span><strong>Improve how it runs</strong></li>
+              {oriltoStarts.map((start) => (
+                <li key={start.code}>
+                  <span>{start.code}</span>
+                  <strong>{start.label}</strong>
+                  <small>{start.summary}</small>
+                </li>
+              ))}
             </ol>
           </aside>
         </div>
@@ -35,7 +39,7 @@ export default function ServicesPage() {
         <div className="container">
           <div className="services-section-intro">
             <p className="mono eyebrow">Choose your starting point</p>
-            <p>Start with the constraint you feel most clearly. We shape the engagement around the outcome, not a fixed list of deliverables.</p>
+            <p>Choose the motive closest to your current pressure. The detailed service can come after the direction is clear.</p>
           </div>
           <ServiceStartSelector />
         </div>

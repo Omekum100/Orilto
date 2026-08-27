@@ -3,20 +3,22 @@
 import { useState } from "react";
 import { CtaLink } from "@/components/ui/cta-link";
 import { offers } from "@/content/services";
+import { oriltoStarts } from "@/content/site-copy";
 import { analyticsEvents } from "@/lib/analytics/events";
 
-const routeLabels = ["Clarify", "Explain", "Build", "Bound", "Continue"] as const;
+const startToOfferIndex = [0, 2, 3] as const;
 
 export function ServiceStartSelector() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeOffer = offers[activeIndex];
+  const activeStart = oriltoStarts[activeIndex] ?? oriltoStarts[0];
+  const activeOffer = offers[startToOfferIndex[activeIndex] ?? 0];
 
   return (
     <div className="service-start-selector">
       <div className="service-start-tabs" role="tablist" aria-label="Choose a service starting point">
-        {offers.map((offer, index) => (
+        {oriltoStarts.map((start, index) => (
           <button
-            key={offer.title}
+            key={start.label}
             type="button"
             role="tab"
             id={`service-start-tab-${index}`}
@@ -28,36 +30,36 @@ export function ServiceStartSelector() {
             onKeyDown={(event) => {
               if (event.key === "ArrowLeft") {
                 event.preventDefault();
-                const nextIndex = (index - 1 + offers.length) % offers.length;
+                const nextIndex = (index - 1 + oriltoStarts.length) % oriltoStarts.length;
                 setActiveIndex(nextIndex);
                 document.getElementById(`service-start-tab-${nextIndex}`)?.focus();
               }
               if (event.key === "ArrowRight") {
                 event.preventDefault();
-                const nextIndex = (index + 1) % offers.length;
+                const nextIndex = (index + 1) % oriltoStarts.length;
                 setActiveIndex(nextIndex);
                 document.getElementById(`service-start-tab-${nextIndex}`)?.focus();
               }
             }}
           >
-            <span className="mono">{String(index + 1).padStart(2, "0")}</span>
-            <strong>{routeLabels[index]}</strong>
-            <small>{offer.title}</small>
+            <span className="mono">{start.code}</span>
+            <strong>{start.label}</strong>
+            <small>{start.summary}</small>
           </button>
         ))}
       </div>
 
-      <article
+      <div
         className="service-start-panel"
         id="service-start-panel"
         role="tabpanel"
         aria-labelledby={`service-start-tab-${activeIndex}`}
-        key={activeOffer.title}
+        key={activeStart.label}
       >
         <div className="service-start-panel-head">
           <p className="mono">Selected start</p>
-          <h2>{activeOffer.title}</h2>
-          <p>{activeOffer.summary}</p>
+          <h2>{activeStart.label}</h2>
+          <p>{activeStart.route}</p>
         </div>
 
         <div className="service-route-map" aria-label={`${activeOffer.title} route`}>
@@ -80,7 +82,7 @@ export function ServiceStartSelector() {
         <CtaLink href="/contact" variant="ghost" event={analyticsEvents.serviceEnquiryClick} label={activeOffer.title}>
           Discuss this start
         </CtaLink>
-      </article>
+      </div>
     </div>
   );
 }

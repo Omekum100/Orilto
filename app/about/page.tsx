@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { whyOrilto, aiPrinciples } from "@/content/principles";
+import { oriltoStarts } from "@/content/site-copy";
 
 export const metadata: Metadata = {
   title: "About",
@@ -23,6 +24,23 @@ export default function AboutPage() {
         <div className="container grid-12 split">
           <div><h2 className="h2">Vision</h2><p className="lede">A world where practical businesses can build dependable digital systems without losing the intent that made the work worth doing.</p></div>
           <div><h2 className="h2">Mission</h2><p className="lede">To turn business intent into products that work through clear strategy, humane experience design, quality engineering, responsible AI, and reliable cloud delivery.</p></div>
+        </div>
+      </section>
+      <section className="section-tight about-starts-section">
+        <div className="container">
+          <div className="about-starts-head">
+            <p className="mono eyebrow">What that means in practice</p>
+            <h2 className="h2">We help from the point where momentum gets stuck.</h2>
+          </div>
+          <div className="about-starts-grid">
+            {oriltoStarts.map((start) => (
+              <article className="about-start-card" key={start.code}>
+                <span className="mono">{start.code}</span>
+                <h3>{start.label}</h3>
+                <p>{start.summary}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
       <section className="section">

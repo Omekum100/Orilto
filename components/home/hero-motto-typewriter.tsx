@@ -15,9 +15,9 @@ type HeroMottoTypewriterProps = {
 
 type TypePhase = "holding" | "deleting" | "typing";
 
-const HOLD_MS = 5200;
-const TYPE_MS = 68;
-const DELETE_MS = 40;
+const HOLD_MS = 4200;
+const TYPE_MS = 54;
+const DELETE_MS = 34;
 
 export function HeroMottoTypewriter({ headingId, mottos }: HeroMottoTypewriterProps) {
   const [activeIndex, setActiveIndex] = useState(0);

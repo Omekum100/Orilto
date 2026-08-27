@@ -28,6 +28,33 @@ export const trustSignals = [
   "Transparent risks, assumptions, and status"
 ];
 
+export const oriltoStarts = [
+  {
+    code: "01",
+    label: "Idea to growth",
+    summary: "Turn rough ideas into focused product direction.",
+    route: "Clarify the first useful product",
+    contactPrompt:
+      "We have an idea or opportunity, but the first useful product and priorities are not clear yet."
+  },
+  {
+    code: "02",
+    label: "Product to brand",
+    summary: "Strengthen existing products into credible brand experiences.",
+    route: "Improve the product and experience",
+    contactPrompt:
+      "We already have a product or business workflow, but the experience, credibility, or delivery path needs to improve."
+  },
+  {
+    code: "03",
+    label: "AI roadmap",
+    summary: "Use bounded AI to make daily operations easier.",
+    route: "Define one responsible AI workflow",
+    contactPrompt:
+      "We want to use AI in a real workflow, with a clear job, limits, review, and fallback before building."
+  }
+] as const;
+
 export const futureProofSocialProof = {
   testimonials: [],
   metrics: [],

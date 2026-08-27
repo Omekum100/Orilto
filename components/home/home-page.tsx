@@ -3,32 +3,9 @@ import Image from "next/image";
 import { CtaLink } from "@/components/ui/cta-link";
 import { offers } from "@/content/services";
 import { caseStudies } from "@/content/case-studies";
-import { site, trustSignals } from "@/content/site-copy";
+import { oriltoStarts, site, trustSignals } from "@/content/site-copy";
 import { analyticsEvents } from "@/lib/analytics/events";
 import { HeroMottoTypewriter } from "@/components/home/hero-motto-typewriter";
-
-const situations = [
-  {
-    code: "01 / Idea without a product",
-    quote: "We know the opportunity. We cannot yet see the product.",
-    move: "Product Clarity Sprint"
-  },
-  {
-    code: "02 / Work held together manually",
-    quote: "The team is operating through messages, sheets and memory.",
-    move: "Workflow and system map"
-  },
-  {
-    code: "03 / Product that cannot carry the next stage",
-    quote: "The software works, but every change feels risky.",
-    move: "Product and architecture review"
-  },
-  {
-    code: "04 / AI without a useful job",
-    quote: "We want to use AI. We do not want an expensive demo.",
-    move: "AI opportunity and boundary"
-  }
-] as const;
 
 const systemRows = [
   ["Unclear intent", "A written product decision", "Decide"],
@@ -46,23 +23,16 @@ const evidenceRows = [
 
 const aiChecks = ["Job", "Boundary", "Evaluation", "Fallback", "Cost", "Oversight"] as const;
 
-const heroMottos = [
-  {
-    code: "01",
-    label: "Idea to growth",
-    text: "Turn ideas into products."
-  },
-  {
-    code: "02",
-    label: "Brand product",
-    text: "Make products feel credible."
-  },
-  {
-    code: "03",
-    label: "AI roadmap",
-    text: "Make daily work easier."
-  }
-] as const;
+const heroMottos = oriltoStarts.map((start) => ({
+  code: start.code,
+  label: start.label,
+  text:
+    start.code === "01"
+      ? "Turn ideas into products."
+      : start.code === "02"
+        ? "Make products feel credible."
+        : "Make daily work easier."
+}));
 
 const heroCollageImages = [
   {
@@ -131,17 +101,18 @@ export function HomePage() {
         <div className="container">
           <div className="draft-two-col draft-section-head">
             <div>
-              <p className="mono draft-kicker">Recognise the situation</p>
-              <h2 id="situations-title" className="draft-heading">Where does the business break?</h2>
+              <p className="mono draft-kicker">Find your starting point</p>
+              <h2 id="situations-title" className="draft-heading">Three ways Orilto helps work move.</h2>
             </div>
-            <p className="draft-body">Most clients do not arrive asking for a digital transformation. They arrive with a useful tension that has become too expensive to ignore.</p>
+            <p className="draft-body">Start with the pressure you can already feel. We turn it into a clearer decision, a better product, or a controlled AI workflow.</p>
           </div>
-          <div className="situation-register">
-            {situations.map((item) => (
-              <article className="situation-row" key={item.code}>
+          <div className="situation-register motto-register">
+            {oriltoStarts.map((item) => (
+              <article className="situation-row motto-row" key={item.code}>
                 <p className="mono">{item.code}</p>
-                <h3>{item.quote}</h3>
-                <span>{item.move}</span>
+                <h3>{item.label}</h3>
+                <p>{item.summary}</p>
+                <span>{item.route}</span>
               </article>
             ))}
           </div>

@@ -49,21 +49,25 @@ export default function WorkPage() {
               <div>
                 <h2 className="h3">{study.title}</h2>
                 <p>{study.summary}</p>
-                <dl className="case-signal-list">
+                <dl className="case-proof-strip">
                   <div>
                     <dt>Situation</dt>
                     <dd>{study.need}</dd>
                   </div>
                   <div>
-                    <dt>Contribution</dt>
+                    <dt>Orilto move</dt>
                     <dd>{study.contribution}</dd>
+                  </div>
+                  <div>
+                    <dt>Delivered</dt>
+                    <dd>{study.delivered[0]}</dd>
                   </div>
                   <div>
                     <dt>Evidence</dt>
                     <dd>{study.evidence[0]}</dd>
                   </div>
                   <div>
-                    <dt>Limits</dt>
+                    <dt>Limit</dt>
                     <dd>{study.sections.limitations}</dd>
                   </div>
                 </dl>

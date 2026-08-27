@@ -6,13 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, projectTypes, type ContactInput } from "@/lib/validation/contact";
 import { track } from "@/lib/analytics/track";
 import { analyticsEvents } from "@/lib/analytics/events";
-import { site } from "@/content/site-copy";
+import { oriltoStarts, site } from "@/content/site-copy";
+
+const promptProjectTypes = ["Product clarity", "Existing product improvement", "AI workflow"] as const;
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<ContactInput>({
+  const { register, handleSubmit, reset, setError, setValue, formState: { errors, isSubmitting } } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: { projectType: "Not sure yet", consent: false }
   });
@@ -62,6 +64,24 @@ export function ContactForm() {
         </div>
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="surface contact-form-card" aria-describedby="form-status">
+        <div className="contact-prompt-grid" aria-label="Common enquiry starting points">
+          {oriltoStarts.map((start, index) => (
+            <button
+              className="contact-prompt"
+              key={start.code}
+              type="button"
+              onClick={() => {
+                setValue("change", start.contactPrompt, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+                setValue("projectType", promptProjectTypes[index] ?? "Not sure yet", { shouldDirty: true, shouldValidate: true });
+                track(analyticsEvents.contactFormStarted);
+              }}
+              aria-label={`Use ${start.label} enquiry prompt`}
+            >
+              <span className="mono">{start.code}</span>
+              <strong>{start.label}</strong>
+            </button>
+          ))}
+        </div>
         <div className="form-grid">
           <Field label="Name" error={errors.name?.message}><input {...register("name")} autoComplete="name" required onFocus={() => track(analyticsEvents.contactFormStarted)} /></Field>
           <Field label="Work email" error={errors.email?.message}><input {...register("email")} type="email" autoComplete="email" required /></Field>

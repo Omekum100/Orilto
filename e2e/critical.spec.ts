@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 test("home page answers the core positioning and has no obvious accessibility violations", async ({ page }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");
-  await expect(page.getByRole("heading", { name: /Idea to growth/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Idea to growth/i })).toBeVisible();
   await expect(page.locator(".draft-tagline")).toHaveAttribute("aria-label", "Not just design. Not just code. We build what grows your business.");
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);

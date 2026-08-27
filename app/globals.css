@@ -3570,9 +3570,18 @@ body {
 }
 
 .system-row b {
-  color: var(--orilto-evidence);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 6px 10px;
+  border: 1px solid rgba(184,41,25,.28);
+  color: var(--orilto-signal);
+  background: rgba(228,66,46,.07);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 
@@ -5090,5 +5099,315 @@ body {
 
   .service-scope summary {
     padding-inline: 14px;
+  }
+}
+
+/* Site audit refinements: make the three Orilto starts easier to scan */
+.motto-register {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.motto-row {
+  min-height: 220px;
+  display: grid;
+  align-content: start;
+  padding: 22px 20px 20px;
+  border: 1px solid rgba(21,21,21,.16);
+  background:
+    linear-gradient(135deg, rgba(255,253,246,.82), rgba(255,253,246,.52)),
+    linear-gradient(180deg, transparent 0, transparent calc(100% - 54px), rgba(228,66,46,.08) calc(100% - 54px));
+}
+
+.motto-row:after {
+  right: 18px;
+  top: 20px;
+}
+
+.motto-row h3 {
+  max-width: 12ch;
+  margin-top: 28px;
+}
+
+.motto-row > p:not(.mono) {
+  max-width: 32ch;
+  margin: 0 0 28px;
+  color: var(--orilto-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.motto-row span {
+  align-self: end;
+  color: var(--orilto-signal);
+}
+
+.service-hero-index li {
+  align-items: start;
+}
+
+.service-hero-index li small {
+  grid-column: 2;
+  margin-top: -5px;
+  color: var(--orilto-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.service-start-selector {
+  grid-template-columns: minmax(280px, .44fr) minmax(0, 1fr);
+}
+
+.service-start-tab {
+  grid-template-columns: 34px minmax(0, 1fr);
+}
+
+.service-start-tab small {
+  grid-column: 2;
+  color: var(--orilto-muted);
+}
+
+.about-starts-section {
+  background: var(--orilto-bone);
+  border-block: 1px solid rgba(21,21,21,.12);
+}
+
+.about-starts-head {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+  gap: clamp(24px, 7vw, 100px);
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.about-starts-head .eyebrow,
+.about-starts-head .h2 {
+  margin: 0;
+}
+
+.about-starts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.about-start-card {
+  min-height: 180px;
+  padding: 22px;
+  border: 1px solid rgba(21,21,21,.16);
+  background: var(--orilto-white);
+}
+
+.about-start-card .mono {
+  color: var(--orilto-signal);
+}
+
+.about-start-card h3 {
+  max-width: 12ch;
+  margin: 34px 0 10px;
+  color: var(--orilto-ink);
+  font-size: clamp(21px, 2vw, 28px);
+  line-height: 1.05;
+}
+
+.about-start-card p {
+  margin: 0;
+  color: var(--orilto-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.case-proof-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 18px 0 16px;
+  border: 1px solid rgba(21,21,21,.14);
+  background: rgba(255,253,246,.6);
+}
+
+.case-proof-strip div {
+  min-height: 122px;
+  padding: 13px 12px;
+  border-left: 1px solid rgba(21,21,21,.12);
+}
+
+.case-proof-strip div:first-child {
+  border-left: 0;
+}
+
+.case-proof-strip dt {
+  margin-bottom: 8px;
+  color: var(--orilto-signal);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.case-proof-strip dd {
+  margin: 0;
+  color: var(--orilto-muted);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.contact-prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.contact-prompt {
+  min-height: 78px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 14px;
+  color: var(--orilto-ink);
+  text-align: left;
+  background: rgba(255,253,246,.84);
+  border: 1px solid rgba(21,21,21,.18);
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.contact-prompt:hover,
+.contact-prompt:focus-visible {
+  color: var(--orilto-ink);
+  background: rgba(228,66,46,.08);
+  border-color: rgba(228,66,46,.42);
+  transform: translateY(-2px);
+}
+
+.contact-prompt .mono {
+  color: var(--orilto-signal);
+}
+
+.contact-prompt strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.footer-starts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding-block: 14px;
+  border-bottom: 1px solid rgba(21,21,21,.14);
+}
+
+.footer-starts a {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid rgba(21,21,21,.14);
+  color: var(--orilto-ink);
+  background: rgba(255,253,246,.5);
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.footer-starts a:hover {
+  color: var(--orilto-signal);
+  background: var(--orilto-white);
+  border-color: rgba(228,66,46,.38);
+}
+
+.footer-starts .mono {
+  color: var(--orilto-signal);
+  font-size: 10px;
+}
+
+.footer-starts strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+@media (max-width: 1080px) {
+  .case-proof-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-proof-strip div {
+    min-height: auto;
+    border-top: 1px solid rgba(21,21,21,.12);
+  }
+
+  .case-proof-strip div:nth-child(odd) {
+    border-left: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .motto-register,
+  .about-starts-grid,
+  .contact-prompt-grid,
+  .footer-starts {
+    grid-template-columns: 1fr;
+  }
+
+  .service-start-selector,
+  .service-start-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .motto-row,
+  .about-start-card {
+    min-height: auto;
+  }
+
+  .about-starts-head {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .image-mosaic .case-image:nth-child(n+2) {
+    display: none;
+  }
+
+  .image-mosaic {
+    display: block;
+    grid-template-rows: none;
+  }
+
+  .image-mosaic .case-image:first-child {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .motto-row {
+    padding: 18px 18px 20px;
+  }
+
+  .motto-row h3 {
+    margin-top: 22px;
+  }
+
+  .service-hero-index li small {
+    font-size: 12px;
+  }
+
+  .case-proof-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .case-proof-strip div {
+    border-left: 0;
+  }
+
+  .contact-prompt {
+    min-height: 64px;
+  }
+
+  .footer-starts a {
+    min-height: 42px;
   }
 }
