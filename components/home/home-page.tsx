@@ -235,7 +235,7 @@ export function HomePage() {
             <p className="draft-contact"><span>Call</span><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></p>
           </div>
           <form className="mini-brief" action="/contact">
-            <p className="mono">Messy / starting brief 001</p>
+            <h3 className="mini-brief-heading">Share your starting brief</h3>
             <label>Name<input name="name" placeholder="Your name" /></label>
             <label>Work email<input name="email" placeholder="you@company.com" /></label>
             <label>What needs to change?<textarea name="message" placeholder="Describe the friction, affected people and useful outcome..." /></label>
