@@ -6,7 +6,7 @@ import { analyticsEvents } from "@/lib/analytics/events";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Selected Orilto case studies showing product strategy, UX, engineering, responsible AI, and credible digital presence work without unsupported claims.",
+  description: "Selected Orilto case studies showing product strategy, UX, engineering, responsible AI, and credible digital presence work through supplied or observable evidence.",
   alternates: { canonical: "/work" }
 };
 
@@ -16,8 +16,8 @@ export default function WorkPage() {
       <section className="page-hero">
         <div className="container">
           <p className="mono eyebrow">Work</p>
-          <h1 className="h1">Case studies with status, evidence, and limits.</h1>
-          <p className="lede">A small set of selected projects. Claims are limited to supplied or observable work, with remaining opportunities named clearly.</p>
+          <h1 className="h1">Case studies with status and evidence.</h1>
+          <p className="lede">A small set of selected projects focused on supplied or observable work, with next opportunities named clearly.</p>
         </div>
       </section>
       <section className="section-compact">
@@ -65,10 +65,6 @@ export default function WorkPage() {
                   <div>
                     <dt>Evidence</dt>
                     <dd>{study.evidence[0]}</dd>
-                  </div>
-                  <div>
-                    <dt>Limit</dt>
-                    <dd>{study.sections.limitations}</dd>
                   </div>
                 </dl>
                 <div className="tag-row">{study.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>

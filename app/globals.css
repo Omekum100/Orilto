@@ -5290,7 +5290,7 @@ body {
 
 .case-proof-strip {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   margin: 18px 0 16px;
   border: 1px solid rgba(21,21,21,.14);

@@ -49,7 +49,6 @@ export const caseStudies: CaseStudy[] = [
       direction: "The platform direction connects conversational discovery to structured marketplace records, supplier interactions, and operator review.",
       experience: "The experience model separates customer discovery, supplier presentation, enquiry workflow, and operational oversight so each user has a clear job.",
       architecture: "The technical direction uses a full-stack web application, authenticated APIs, media handling, notifications, and AWS-aligned infrastructure with observability and deployment considerations.",
-      limitations: "Automated booking, marketplace scale, revenue impact, and AI accuracy are not claimed because verified production evidence has not been supplied.",
       opportunities: "Next-stage work can deepen supplier tooling, strengthen evaluation, improve operational dashboards, and expand marketplace automation once real usage data exists."
     }
   },
@@ -85,7 +84,6 @@ export const caseStudies: CaseStudy[] = [
       direction: "The direction prioritizes plain-language positioning, service clarity, responsive layout, and a direct enquiry path.",
       experience: "The interface presents capabilities in a composed, readable structure with calls to contact at points where intent is likely.",
       architecture: "The build focuses on performant frontend delivery, semantic pages, SEO metadata, accessible interaction, and maintainable content structure.",
-      limitations: "Sales lift, lead growth, and search ranking improvements are not claimed without approved evidence.",
       opportunities: "Future work can add approved project examples, technical capability pages, richer enquiry routing, and measurement-led content improvements."
     }
   }
